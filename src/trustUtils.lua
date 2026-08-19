@@ -161,13 +161,25 @@ function trustUtils.findMissingTrusts(ownedTrusts, hideUC, hideTimeLimited)
                 end
             end
 
-            if not owned and (not hideUC or (hideUC and not string.find(trustName, '%(UC%)'))) and (not hideTimeLimited or (hideTimeLimited and (entry.id ~= 1002 and entry.id ~= 1003))) then
+            if
+                not owned and
+                trustUtils.shouldHideTrustsFromList(hideUC, trustName) and
+                trustUtils.hideTimeLimitedTrustsFromList(hideTimeLimited, trustName)
+            then
                 table.insert(missing, trustName)
             end
         end
     end
 
     return missing
+end
+
+function trustUtils.shouldHideTrustsFromList(checkboxValue, trustIdentifier)
+    return (not checkboxValue or (checkboxValue and not string.find(trustIdentifier, '%(UC%)')))
+end
+
+function trustUtils.hideTimeLimitedTrustsFromList(checkboxValue, trustIdentifier)
+    return (not checkboxValue or (checkboxValue and not T{'Cornelia', 'Matsui-P'}:contains(trustIdentifier)))
 end
 
 return trustUtils
