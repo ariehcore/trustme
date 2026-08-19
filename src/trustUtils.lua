@@ -141,7 +141,7 @@ function trustUtils.findMissingCiphers(ciphers, ownedTrusts)
     return missing
 end
 
-function trustUtils.findMissingTrusts(ownedTrusts, hideUC)
+function trustUtils.findMissingTrusts(ownedTrusts, hideUC, hideTimeLimited)
     local missing = {}
     local trustData = require('data/trustData')
 
@@ -161,7 +161,7 @@ function trustUtils.findMissingTrusts(ownedTrusts, hideUC)
                 end
             end
 
-            if not owned and (not hideUC or (hideUC and not string.find(trustName, '%(UC%)'))) then
+            if not owned and (not hideUC or (hideUC and not string.find(trustName, '%(UC%)'))) and (not hideTimeLimited or (hideTimeLimited and (entry.id ~= 1002 and entry.id ~= 1003))) then
                 table.insert(missing, trustName)
             end
         end
