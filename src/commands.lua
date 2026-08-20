@@ -110,7 +110,7 @@ function commands.handleCommand(args)
             if arg2 ~= '' and argTable:containskey(arg2) then
                 argTable[arg2] = commands.parseMissingTrustCommandArg(arg2)
             end
-            if arg2 ~= '' and argTable:containskey(arg3) then
+            if arg3 ~= '' and argTable:containskey(arg3) then
                 argTable[arg3] = commands.parseMissingTrustCommandArg(arg3)
             end
             local missing = trustUtils.findMissingTrusts(trustUtils.getTrustNames(trustUtils.getTrusts()), argTable['hideuc'], argTable['hidetimelimited'])
