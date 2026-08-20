@@ -163,7 +163,7 @@ function trustUtils.findMissingTrusts(ownedTrusts, hideUC, hideTimeLimited)
 
             if
                 not owned and
-                trustUtils.shouldHideTrustsFromList(hideUC, trustName) and
+                trustUtils.hideUnityTrustsFromList(hideUC, trustName) and
                 trustUtils.hideTimeLimitedTrustsFromList(hideTimeLimited, trustName)
             then
                 table.insert(missing, trustName)
@@ -174,7 +174,7 @@ function trustUtils.findMissingTrusts(ownedTrusts, hideUC, hideTimeLimited)
     return missing
 end
 
-function trustUtils.shouldHideTrustsFromList(checkboxValue, trustIdentifier)
+function trustUtils.hideUnityTrustsFromList(checkboxValue, trustIdentifier)
     return (not checkboxValue or (checkboxValue and not string.find(trustIdentifier, '%(UC%)')))
 end
 
