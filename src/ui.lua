@@ -561,8 +561,6 @@ function ui.drawMissingWindow()
                     missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1], missingWindow.hideTimeLimited[1])
                 end
 
-                imgui.Separator()
-
                 -- Hide Time Limited Trusts (Cornelia / Matsui-P) checkbox
                 if imgui.Checkbox('Hide limited time trusts', missingWindow.hideTimeLimited) then
                     -- Refresh the list when checkbox changes

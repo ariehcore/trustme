@@ -103,15 +103,15 @@ function commands.handleCommand(args)
             print(chat.header(addon.name):append(chat.message('Fetching trust ciphers from login campaign...')))
             trustUtils.fetchLoginCampaignCiphers()
         elseif arg == 'missing' or arg == 'm' then
-            local argTable = T{
+            local argTable = T {
                 ['hideuc'] = false,
                 ['hidetimelimited'] = false
             };
             if arg2 ~= '' and argTable:containskey(arg2) then
-                argTable[arg2] = commands.parseMissingTrustCommandArg(arg2)
+                argTable[arg2] = true
             end
             if arg3 ~= '' and argTable:containskey(arg3) then
-                argTable[arg3] = commands.parseMissingTrustCommandArg(arg3)
+                argTable[arg3] = true
             end
             local missing = trustUtils.findMissingTrusts(trustUtils.getTrustNames(trustUtils.getTrusts()), argTable['hideuc'], argTable['hidetimelimited'])
 
@@ -127,18 +127,6 @@ function commands.handleCommand(args)
 
         end
     end
-end
-
-function commands.parseMissingTrustCommandArg(commandArg)
-    if (commandArg == 'hideuc') then
-        return true
-    end
-
-    if (commandArg == 'hidetimelimited') then
-        return true
-    end
-
-    return false
 end
 
 return commands

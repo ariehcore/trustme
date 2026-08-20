@@ -179,7 +179,7 @@ function trustUtils.hideUnityTrustsFromList(checkboxValue, trustIdentifier)
 end
 
 function trustUtils.hideTimeLimitedTrustsFromList(checkboxValue, trustIdentifier)
-    return (not checkboxValue or (checkboxValue and not T{'Cornelia', 'Matsui-P'}:contains(trustIdentifier)))
+    return (not checkboxValue or (checkboxValue and not T { 'Cornelia', 'Matsui-P' }:contains(trustIdentifier)))
 end
 
 return trustUtils
