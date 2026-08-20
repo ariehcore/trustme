@@ -40,7 +40,7 @@
 
 `/trustme logincampaign|lc` Fetch and compare current login campaign's trusts for sale to tell you which ones you are missing
 
-`/trustme missing|m [optional: hideuc]` Returns which trusts you don't own yet, adding hideuc hides the UC trusts from the output
+`/trustme missing|m [optional: hideuc|hidetimelimited]` Returns which trusts you don't own yet, adding hideuc hides the UC trusts from the output and adding himetimelimited removes Cornelia/Matsui-P from the output.
 
 ## Thanks & credits
 

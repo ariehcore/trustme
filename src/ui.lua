@@ -184,6 +184,7 @@ local missingWindow = {
     visible = { false },
     currentTab = 1,
     hideUC = { false },
+    hideTimeLimited = { false },
     missingTrusts = {},
     loginCampaignResults = {},
     searchMissing = { '' },
@@ -540,7 +541,7 @@ function ui.drawMissingWindow()
     -- Auto-fetch missing trusts if not loaded
     if not missingWindow.missingTrusts or #missingWindow.missingTrusts == 0 then
         local ownedTrusts = trustUtils.getTrustNames(trustUtils.getTrusts())
-        missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1])
+        missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1], missingWindow.hideTimeLimited[1])
     end
 
     imgui.SetNextWindowSize({ 450, 400 }, ImGuiCond_Always)
@@ -557,7 +558,16 @@ function ui.drawMissingWindow()
                 if imgui.Checkbox('Hide Unity Concord', missingWindow.hideUC) then
                     -- Refresh the list when checkbox changes
                     local ownedTrusts = trustUtils.getTrustNames(trustUtils.getTrusts())
-                    missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1])
+                    missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1], missingWindow.hideTimeLimited[1])
+                end
+
+                imgui.Separator()
+
+                -- Hide Time Limited Trusts (Cornelia / Matsui-P) checkbox
+                if imgui.Checkbox('Hide limited time trusts', missingWindow.hideTimeLimited) then
+                    -- Refresh the list when checkbox changes
+                    local ownedTrusts = trustUtils.getTrustNames(trustUtils.getTrusts())
+                    missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1], missingWindow.hideTimeLimited[1])
                 end
 
                 imgui.Separator()
@@ -603,7 +613,7 @@ function ui.drawMissingWindow()
                 -- Refresh button
                 if imgui.Button('Refresh##MissingRefresh', { -1, 0 }) then
                     local ownedTrusts = trustUtils.getTrustNames(trustUtils.getTrusts())
-                    missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1])
+                    missingWindow.missingTrusts = trustUtils.findMissingTrusts(ownedTrusts, missingWindow.hideUC[1], missingWindow.hideTimeLimited[1])
                 end
 
                 imgui.EndTabItem()
