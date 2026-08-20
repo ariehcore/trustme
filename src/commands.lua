@@ -52,6 +52,7 @@ function commands.handleCommand(args)
     local command = string.lower(args[1])
     local arg = #args > 1 and string.lower(args[2]) or ''
     local arg2 = #args > 2 and string.lower(args[3]) or ''
+    local arg3 = #args > 3 and string.lower(args[4]) or ''
     local arg2Raw = #args > 2 and args[3] or ''
 
     if command == '/tme' or command == '/trustme' or command == '/trusts' or command == '/trust' then
@@ -103,10 +104,14 @@ function commands.handleCommand(args)
             trustUtils.fetchLoginCampaignCiphers()
         elseif arg == 'missing' or arg == 'm' then
             local hideUC = false
+            local hideTimeLimited = false
             if arg2 ~= '' and arg2 == 'hideuc' then
                 hideUC = true
             end
-            local missing = trustUtils.findMissingTrusts(trustUtils.getTrustNames(trustUtils.getTrusts()), hideUC)
+            if arg3 ~= '' and arg3 == 'hidetimelimited' then
+                hideTimeLimited = true
+            end
+            local missing = trustUtils.findMissingTrusts(trustUtils.getTrustNames(trustUtils.getTrusts()), hideUC, hideTimeLimited)
 
             if missing and #missing > 0 then
                 local output = table.concat(missing, ', ')
